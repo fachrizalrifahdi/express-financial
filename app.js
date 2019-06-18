@@ -13,6 +13,7 @@ import dbConfig from "./src/config/database.config"; // add database config
 
 // api route
 import apiRouter from "./src/routes/api/api"; // api
+import usersApiRouter from "./src/routes/api/users"; // users
 
 const app = express();
 
@@ -47,6 +48,14 @@ app.use("/", indexRouter);
 
 //api route
 app.use("/api", apiRouter);
+app.use("/api/users", usersApiRouter);
+
+// catch 404
+app.use((req, res, next) => {
+  const error = new Error("Not Found!");
+  error.status(404);
+  next(error);
+});
 
 // error handler
 app.use((error, req, res, next) => {
