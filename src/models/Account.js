@@ -13,8 +13,8 @@ const accountSchema = new Schema({
     trim: true
   },
   address: String,
-  city: String,
-  userProfileImage: String
+  country: String,
+  accountImage: String
 });
 
 // instance schema
