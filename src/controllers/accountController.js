@@ -26,15 +26,15 @@ const accountCreate = (req, res, next) => {
   const decoded = jwt.verify(token, process.env.JWT_KEY);
   req.userData = decoded;
   // Create a user profile
-  const accountData = new Account({
+  const account = new Account({
     user: decoded.userId,
     address: req.body.address,
     country: req.body.country,
     accountImage: req.file.path
   });
 
-  // Save accountData in the database
-  accountData
+  // Save account in the database
+  account
     .save()
     .then(data => {
       res.status(200).send(data);
@@ -47,37 +47,37 @@ const accountCreate = (req, res, next) => {
     });
 };
 
-// Find accountData only one data
-const accountDataFindOne = (req, res, next) => {
+// Find account only one data
+const accountFindOne = (req, res, next) => {
   Account.findById(req.params.account6DataId)
     .populate("user", "role email phone userName firstName lastName")
     .select("_id age contact address city userProfileImage")
     .exec()
-    .then(accountData => {
-      if (!accountData) {
+    .then(account => {
+      if (!account) {
         return res.status(404).send({
-          message: "Account Data not found with id " + req.params.accountDataId
+          message: "Account Data not found with id " + req.params.accountId
         });
       }
-      res.status(200).send(accountData);
+      res.status(200).send(account);
     })
     .catch(err => {
       if (err.kind === "ObjectId") {
         return res.status(404).send({
-          message: "Account Data not found with id " + req.params.accountDataId
+          message: "Account Data not found with id " + req.params.accountId
         });
       }
       return res.status(500).send({
-        message: "Error retrieving user with id " + req.params.accountDataId
+        message: "Error retrieving user with id " + req.params.accountId
       });
     });
 };
 
-// Update accountData
+// Update account
 const accountUpdate = (req, res, next) => {
   // Find account and update it with the request body
   Account.findByIdAndUpdate(
-    req.params.accountDataId,
+    req.params.accountId,
     {
       $set: req.body || req.file.path
     },
@@ -85,33 +85,33 @@ const accountUpdate = (req, res, next) => {
       new: true
     }
   )
-    .then(accountData => {
-      if (!accountData) {
+    .then(account => {
+      if (!account) {
         return res.status(404).send({
-          message: "Account not found with id " + req.params.accountDataId
+          message: "Account not found with id " + req.params.accountId
         });
       }
-      res.status(200).send(accountData);
+      res.status(200).send(account);
     })
     .catch(err => {
       if (err.kind === "ObjectId") {
         return res.status(404).send({
-          message: "Account not found with id " + req.params.accountDataId
+          message: "Account not found with id " + req.params.accountId
         });
       }
       return res.status(500).send({
-        message: "Error updating Account with id " + req.params.accountDataId
+        message: "Error updating Account with id " + req.params.accountId
       });
     });
 };
 
-// Delete accountData
+// Delete account
 const accountDelete = (req, res, next) => {
-  Account.findByIdAndRemove(req.params.accountDataId)
-    .then(accountData => {
-      if (!accountData) {
+  Account.findByIdAndRemove(req.params.accountId)
+    .then(account => {
+      if (!account) {
         return res.status(404).send({
-          message: "Account Data not found with id " + req.params.accountDataId
+          message: "Account Data not found with id " + req.params.accountId
         });
       }
       res.status(200).send({
@@ -121,12 +121,11 @@ const accountDelete = (req, res, next) => {
     .catch(err => {
       if (err.kind === "ObjectId" || err.name === "NotFound") {
         return res.status(404).send({
-          message: "Account Data not found with id " + req.params.accountDataId
+          message: "Account Data not found with id " + req.params.accountId
         });
       }
       return res.status(500).send({
-        message:
-          "Could not delete Account Data with id " + req.params.accountDataId
+        message: "Could not delete Account Data with id " + req.params.accountId
       });
     });
 };

@@ -50,20 +50,12 @@ router.post(
 );
 
 // show selected user profiles api
-router.get("/:accountDataId", accountController.accountFindOne);
+router.get("/:accountId", accountController.accountFindOne);
 
 // update selected user profiles api
-router.patch(
-  "/:accountDataId",
-  auth.checkAuth,
-  accountController.accountUpdate
-);
+router.patch("/:accountId", auth.checkAuth, accountController.accountUpdate);
 
 // delete selected user profiles api
-router.delete(
-  "/:accountDataId",
-  auth.checkAuth,
-  accountController.accountDelete
-);
+router.delete("/:accountId", auth.checkAuth, accountController.accountDelete);
 
 export default router;
