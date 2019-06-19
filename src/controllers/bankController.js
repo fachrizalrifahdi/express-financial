@@ -1,21 +1,20 @@
 import Bank from "../models/Bank"; //import report model
 import jwt from "jsonwebtoken";
 
-// Index report
-const reportIndex = (req, res, next) => {
-  Report.find()
-    .populate("user", "role email userName firstName lastName")
-    .select("_id issues information created_at")
+// Index bank
+const bankIndex = (req, res, next) => {
+  Bank.find()
+    .select("_id bankName bankCode state")
     .exec()
-    .then(reports => {
+    .then(banks => {
       res.status(200).send({
-        data: reports,
-        result_count: reports.length
+        data: banks,
+        result_count: banks.length
       });
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving reports."
+        message: err.message || "Some error occurred while retrieving banks."
       });
     });
 };
@@ -130,7 +129,7 @@ const reportDelete = (req, res, next) => {
 
 // export all function
 export default {
-  reportIndex,
+  bankIndex,
   reportCreate,
   reportFindOne,
   reportUpdate,
