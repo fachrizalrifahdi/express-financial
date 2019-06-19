@@ -3,21 +3,24 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const paymentSchema = new Schema({
+const depositSchema = new Schema({
   user: {
     type: ObjectId,
     ref: "User"
   },
-  paymentChannel: {
-    type: String,
-    trim: true,
-    required: [true, "Payment Channel required"]
+  bank: {
+    type: ObjectId,
+    ref: "Bank"
   },
   ammount: {
     type: ObjectId,
     ref: "Account"
+  },
+  deposit: {
+    type: String,
+    trim: true
   }
 });
 
 // instance schema
-export default mongoose.model("Payment", paymentSchema);
+export default mongoose.model("Deposit", depositSchema);

@@ -8,9 +8,14 @@ const accountSchema = new Schema({
     type: ObjectId,
     ref: "User"
   },
-  age: Number,
-  contact: String,
+  ammount: {
+    type: String,
+    trim: true
+  },
   address: String,
   city: String,
   userProfileImage: String
 });
+
+// instance schema
+export default mongoose.model("Account", accountSchema);
