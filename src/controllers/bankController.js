@@ -19,62 +19,61 @@ const bankIndex = (req, res, next) => {
     });
 };
 
-// Create report
-const reportCreate = (req, res, next) => {
+// Create bank
+const bankCreate = (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt.verify(token, process.env.JWT_KEY);
   req.userData = decoded;
-  // Create a report
-  const report = new Report({
+  // Create a bank
+  const bank = new Bank({
     user: decoded.userId,
-    issues: req.body.issues,
-    information: req.body.information
+    bankName: req.body.bankName,
+    bankCode: req.body.bankCode
   });
 
-  // Save Report in the database
-  report
+  // Save Bank in the database
+  bank
     .save()
     .then(data => {
       res.status(200).send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the report."
+        message: err.message || "Some error occurred while creating the bank."
       });
     });
 };
 
-// Find Report only one data
-const reportFindOne = (req, res, next) => {
-  Report.findById(req.params.reportId)
-    .populate("user", "role email userName firstName lastName")
-    .select("_id issues information created_at")
+// Find Bank only one data
+const bankFindOne = (req, res, next) => {
+  Bank.findById(req.params.bankId)
+    .select("_id bankName bankCode state")
     .exec()
-    .then(report => {
-      if (!report) {
+    .then(bank => {
+      if (!bank) {
         return res.status(404).send({
-          message: "report not found with id " + req.params.reportId
+          message: "bank not found with id " + req.params.bankId
         });
       }
-      res.status(200).send(report);
+      res.status(200).send(bank);
     })
     .catch(err => {
       if (err.kind === "ObjectId") {
         return res.status(404).send({
-          message: "report not found with id " + req.params.reportId
+          message: "bank not found with id " + req.params.bankId
         });
       }
       return res.status(500).send({
-        message: "Error retrieving report with id " + req.params.reportId
+        message: "Error retrieving bank with id " + req.params.bankId
       });
     });
 };
 
-// Update Report
+// Update Bank
 const reportUpdate = (req, res, next) => {
-  // Find report and update it with the request body
-  Report.findByIdAndUpdate(
-    req.params.reportId,
+  // Find bank and update it with the request body
+  Bank.findByIdAndUpdate(
+    req.params.bankId,
     {
       $set: req.body
     },
@@ -82,47 +81,47 @@ const reportUpdate = (req, res, next) => {
       new: true
     }
   )
-    .then(report => {
-      if (!report) {
+    .then(bank => {
+      if (!bank) {
         return res.status(404).send({
-          message: "report not found with id " + req.params.reportId
+          message: "bank not found with id " + req.params.bankId
         });
       }
-      res.status(200).send(report);
+      res.status(200).send(bank);
     })
     .catch(err => {
       if (err.kind === "ObjectId") {
         return res.status(404).send({
-          message: "report not found with id " + req.params.reportId
+          message: "bank not found with id " + req.params.bankId
         });
       }
       return res.status(500).send({
-        message: "Error updating report with id " + req.params.reportId
+        message: "Error updating bank with id " + req.params.bankId
       });
     });
 };
 
-// Delete Report
-const reportDelete = (req, res, next) => {
-  Report.findByIdAndRemove(req.params.reportId)
-    .then(report => {
-      if (!report) {
+// Delete Bank
+const bankDelete = (req, res, next) => {
+  Bank.findByIdAndRemove(req.params.bankId)
+    .then(bank => {
+      if (!bank) {
         return res.status(404).send({
-          message: "report not found with id " + req.params.reportId
+          message: "Bank not found with id " + req.params.bankId
         });
       }
       res.status(200).send({
-        message: "report deleted successfully!"
+        message: "Bank deleted successfully!"
       });
     })
     .catch(err => {
       if (err.kind === "ObjectId" || err.name === "NotFound") {
         return res.status(404).send({
-          message: "report not found with id " + req.params.reportId
+          message: "Bank not found with id " + req.params.bankId
         });
       }
       return res.status(500).send({
-        message: "Could not delete report with id " + req.params.reportId
+        message: "Could not delete bank with id " + req.params.bankId
       });
     });
 };
@@ -130,8 +129,8 @@ const reportDelete = (req, res, next) => {
 // export all function
 export default {
   bankIndex,
-  reportCreate,
-  reportFindOne,
-  reportUpdate,
-  reportDelete
+  bankCreate,
+  bankFindOne,
+  bankUpdate,
+  bankDelete
 };

@@ -6,11 +6,13 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const bankSchema = new Schema({
   bankName: {
     type: String,
+    unique: true,
     trim: true,
     required: [true, "Bank Name required"]
   },
   bankCode: {
     type: String,
+    unique: true,
     trim: true,
     required: [true, "Bank Code required"]
   },

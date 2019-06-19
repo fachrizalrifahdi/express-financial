@@ -10,6 +10,7 @@ const paymentSchema = new Schema({
   },
   paymentChannel: {
     type: String,
+    unique: true,
     trim: true,
     required: [true, "Payment Channel required"]
   }
