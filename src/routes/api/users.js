@@ -2,7 +2,7 @@ import express from "express";
 
 import userController from "../../controllers/userController"; // import controller
 
-import auth from "../../middlewares/check-auth";
+import auth from "../../middleware/check-auth";
 
 const router = express.Router();
 
@@ -11,9 +11,6 @@ router.get("/", userController.userIndex);
 
 // find user route users api
 router.get("/user", userController.userFindUserIndex);
-
-// find partner route users api
-router.get("/partner", userController.userFindPartnerIndex);
 
 // find admin route users api
 router.get("/admin", auth.checkAuth, userController.userFindAdminIndex);

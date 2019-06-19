@@ -12,10 +12,6 @@ const paymentSchema = new Schema({
     type: String,
     trim: true,
     required: [true, "Payment Channel required"]
-  },
-  ammount: {
-    type: ObjectId,
-    ref: "Account"
   }
 });
 
