@@ -17,6 +17,7 @@ import usersApiRouter from "./src/routes/api/users"; // users
 import accountsApiRouter from "./src/routes/api/accounts"; // accounts
 import banksApiRouter from "./src/routes/api/banks"; // accounts
 import depositsApiRouter from "./src/routes/api/deposits"; // accounts
+import paymentsApiRouter from "./src/routes/api/payments"; // accounts
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use("/api/users", usersApiRouter);
 app.use("/api/accounts", accountsApiRouter);
 app.use("/api/banks", banksApiRouter);
 app.use("/api/deposits", depositsApiRouter);
+app.use("/api/payments", paymentsApiRouter);
 
 // catch 404
 app.use((req, res, next) => {
