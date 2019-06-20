@@ -2,7 +2,7 @@ import express from "express";
 
 import depositController from "../../controllers/depositController"; // import controller
 
-import auth from "../../middlewares/check-auth";
+import auth from "../../middleware/check-auth";
 
 const router = express.Router();
 
@@ -13,20 +13,12 @@ router.get("/", depositController.depositIndex);
 router.post("/", auth.checkAuth, depositController.depositCreate);
 
 // show selected deposits api
-router.get("/:depositDataId", depositController.depositFindOne);
+router.get("/:depositId", depositController.depositFindOne);
 
 // update selected deposits api
-router.patch(
-  "/:depositDataId",
-  auth.checkAuth,
-  depositController.depositUpdate
-);
+router.patch("/:depositId", auth.checkAuth, depositController.depositUpdate);
 
 // delete selected deposits api
-router.delete(
-  "/:depositDataId",
-  auth.checkAuth,
-  depositController.depositDelete
-);
+router.delete("/:depositId", auth.checkAuth, depositController.depositDelete);
 
 export default router;

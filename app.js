@@ -15,6 +15,7 @@ import dbConfig from "./src/config/database.config"; // add database config
 import apiRouter from "./src/routes/api/api"; // api
 import usersApiRouter from "./src/routes/api/users"; // users
 import accountsApiRouter from "./src/routes/api/accounts"; // accounts
+import banksApiRouter from "./src/routes/api/banks"; // accounts
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use("/", indexRouter);
 app.use("/api", apiRouter);
 app.use("/api/users", usersApiRouter);
 app.use("/api/accounts", accountsApiRouter);
+app.use("/api/banks", banksApiRouter);
 
 // catch 404
 app.use((req, res, next) => {

@@ -70,7 +70,7 @@ const bankFindOne = (req, res, next) => {
 };
 
 // Update Bank
-const reportUpdate = (req, res, next) => {
+const bankUpdate = (req, res, next) => {
   // Find bank and update it with the request body
   Bank.findByIdAndUpdate(
     req.params.bankId,

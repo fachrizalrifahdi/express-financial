@@ -4,7 +4,7 @@ import accountController from "../../controllers/accountController"; // import c
 
 import multer from "multer";
 
-import auth from "../../middlewares/check-auth";
+import auth from "../../middleware/check-auth";
 
 // method storage image to folder uploads
 const storage = multer.diskStorage({

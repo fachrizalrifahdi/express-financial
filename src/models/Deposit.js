@@ -8,14 +8,6 @@ const depositSchema = new Schema({
     type: ObjectId,
     ref: "User"
   },
-  bank: {
-    type: ObjectId,
-    ref: "Bank"
-  },
-  ammount: {
-    type: ObjectId,
-    ref: "Account"
-  },
   deposit: {
     type: String,
     trim: true

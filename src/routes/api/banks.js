@@ -2,7 +2,7 @@ import express from "express";
 
 import bankController from "../../controllers/bankController"; // import controller
 
-import auth from "../../middlewares/check-auth";
+import auth from "../../middleware/check-auth";
 
 const router = express.Router();
 
@@ -13,12 +13,12 @@ router.get("/", bankController.bankIndex);
 router.post("/", auth.checkAuth, bankController.bankCreate);
 
 // show selected banks api
-router.get("/:bankDataId", bankController.bankFindOne);
+router.get("/:bankId", bankController.bankFindOne);
 
 // update selected banks api
-router.patch("/:bankDataId", auth.checkAuth, bankController.bankUpdate);
+router.patch("/:bankId", auth.checkAuth, bankController.bankUpdate);
 
 // delete selected banks api
-router.delete("/:bankDataId", auth.checkAuth, bankController.bankDelete);
+router.delete("/:bankId", auth.checkAuth, bankController.bankDelete);
 
 export default router;
